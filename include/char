@@ -1,0 +1,33 @@
+// <name_to_find> -*- C -*-
+
+#import <stdbool.h>
+
+#import <option>
+
+typedef struct {
+    int (*code)(char);
+    char_option (*chr)(int);
+    char* (*escaped)(char);
+    bool (*is_alpha)(char);
+    bool (*is_num)(char);
+    bool (*is_alphanum)(char);
+    bool (*is_uppercase)(char);
+    bool (*is_lowercase)(char);
+    char (*lowercase)(char);
+    char (*uppercase)(char);
+    int (*compare)(char, char);
+} char_mod;
+
+int code(char);
+char_option chr(int);
+char *escaped(char);
+char lowercase(char);
+char uppercase(char);
+int compare(char, char);
+bool is_alpha(char);
+bool is_num(char);
+bool is_alphanum(char);
+bool is_uppercase(char);
+bool is_lowercase(char);
+
+extern const char_mod Char;

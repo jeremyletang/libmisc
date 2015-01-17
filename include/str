@@ -1,0 +1,69 @@
+// <name_to_find> -*- C -*-
+
+#import <stdio.h>
+#import <string.h>
+#import <stdbool.h>
+
+#import <option>
+
+typedef struct {
+    int (*println)(char*);
+    int (*print)(char*);
+    unsigned (*len)(char*);
+    char_option (*get)(char*, unsigned);
+    bool (*set)(char*, int, char);
+    char* (*create)(int);
+    char* (*make)(int, char);
+    char* (*copy)(char*);
+    char* (*init)(int, char(*)(int));
+    void (*fill)(char*, int, int, char);
+    char* (*concat)(char*, char**);
+    void (*iter)(char*, void(*)(char));
+    void (*iteri)(char*, void(*)(int, char));
+    char* (*map)(char(*)(char), char*);
+    char* (*mapi)(char(*)(int, char), char*);
+    char* (*trim)(char*);
+    int (*index_)(char*, char);
+    int (*rindex_)(char*, char);
+    int (*index_from)(char*, int, char);
+    int (*rindex_from)(char*, int, char);
+    bool (*contains)(char*, char);
+    bool (*contains_from)(char*, int, char);
+    bool (*rcontains_from)(char*, int, char);
+    char* (*uppercase)(char*);
+    char* (*lowercase)(char*);
+    char* (*capitalize)(char*);
+    char* (*uncapitalize)(char*);
+    int (*compare)(char*, char*);
+} str_mod;
+
+int println(char*);
+int print(char*);
+unsigned len(char*);
+char_option get(char*, unsigned);
+bool set(char*, int, char);
+char* create(int);
+char* make(int, char);
+char* copy(char*);
+char* init(int, char(*)(int));
+void fill(char*, int, int, char);
+char* concat(char*, char**);
+void iter(char*, void(*)(char));
+void iteri(char*, void(*)(int, char));
+char* map(char(*)(char), char*);
+char* mapi(char(*)(int, char), char*);
+char* trim(char*);
+int index_(char*, char);
+int rindex_(char*, char);
+int index_from(char*, int, char);
+int rindex_from(char*, int, char);
+bool contains(char*, char);
+bool contains_from(char*, int, char);
+bool rcontains_from(char*, int, char);
+char* uppercase(char*);
+char* lowercase(char*);
+char* capitalize(char*);
+char* uncapitalize(char*);
+int compare(char*, char*);
+
+extern const str_mod Str;

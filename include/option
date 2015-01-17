@@ -1,0 +1,44 @@
+// <option> -*- C -*-
+
+// common stuff
+
+typedef enum {
+    Some,
+    None
+} option_result;
+
+// int stuff
+
+typedef struct {
+    option_result is;
+    int val;
+} some_int;
+
+typedef union {
+    option_result is;
+    some_int some;
+} int_option;
+
+// char stuff
+
+typedef struct {
+    option_result is;
+    char val;
+} some_char;
+
+typedef union {
+    option_result is;
+    some_char some;
+} char_option;
+
+// string stuff
+
+typedef struct {
+    option_result is;
+    char* val;
+} some_str;
+
+typedef union {
+    option_result is;
+    some_str some;
+} str_option;
