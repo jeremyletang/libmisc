@@ -1,5 +1,6 @@
 # min config
-cmake_minimum_required (VERSION 3.0.2)
+cmake_minimum_required (VERSION 2.8.1)
+cmake_policy(SET CMP0042 NEW)
 
 #include paths
 set (LIBMISC_INC ${CMAKE_SOURCE_DIR}/include)
