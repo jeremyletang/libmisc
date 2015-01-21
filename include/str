@@ -22,8 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_LL_STR
-#define MISC_LL_STR
+#ifndef MISC_CORE_STR
+#define MISC_CORE_STR
 
 #include <stdio.h>
 #include <string.h>
@@ -33,7 +33,7 @@
 
 typedef struct {
     size_t (*len)(const char*);
-    char_option (*get)(const char*, unsigned);
+    option(char) (*get)(const char*, unsigned);
     bool (*set)(const char*, int, char);
     char* (*create)(int);
     char* (*make)(int, char);
@@ -59,33 +59,6 @@ typedef struct {
     char* (*uncapitalize)(char*);
     int (*compare)(char*, char*);
 } str_mod;
-
-size_t len(const char*);
-char_option get(const char*, unsigned);
-bool set(const char*, int, char);
-char* create(int);
-char* make(int, char);
-char* copy(char*);
-char* init(int, char(*)(int));
-void fill(char*, int, int, char);
-char* concat(char*, char**);
-void iter(char*, void(*)(char));
-void iteri(char*, void(*)(int, char));
-char* map(char(*)(char), char*);
-char* mapi(char(*)(int, char), char*);
-char* trim(char*);
-int index_(char*, char);
-int rindex_(char*, char);
-int index_from(char*, int, char);
-int rindex_from(char*, int, char);
-bool contains(char*, char);
-bool contains_from(char*, int, char);
-bool rcontains_from(char*, int, char);
-char* uppercase(char*);
-char* lowercase(char*);
-char* capitalize(char*);
-char* uncapitalize(char*);
-int compare(char*, char*);
 
 extern const str_mod Str;
 

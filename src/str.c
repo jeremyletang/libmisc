@@ -31,9 +31,10 @@ len(const char* str) {
     return it_str - str;
 }
 
-char_option
+
+option(char)
 get(const char* str, unsigned pos) {
-    char_option res;
+    option(char) res;
 
     if (len(str) < pos) {
         res.is = None;

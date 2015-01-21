@@ -22,16 +22,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_LL_FORMAT
-#define MISC_LL_FORMAT
+#ifndef MISC_CORE_FORMAT
+#define MISC_CORE_FORMAT
 
 #include <stdarg.h>
 
 typedef struct {
     int (*print)(const char*, ...);
 } format_mod;
-
-int print(const char*, ...);
 
 extern const format_mod Format;
 

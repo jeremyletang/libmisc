@@ -22,8 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_LL_CHAR
-#define MISC_LL_CHAR
+#ifndef MISC_CORE_CHAR
+#define MISC_CORE_CHAR
 
 #include <stdbool.h>
 
@@ -31,7 +31,7 @@
 
 typedef struct {
     int (*code)(char);
-    char_option (*chr)(int);
+    option(char)(*chr)(int);
     char* (*escaped)(char);
     bool (*is_alpha)(char);
     bool (*is_num)(char);
@@ -42,18 +42,6 @@ typedef struct {
     char (*uppercase)(char);
     int (*compare)(char, char);
 } char_mod;
-
-int code(char);
-char_option chr(int);
-char *escaped(char);
-char lowercase(char);
-char uppercase(char);
-int compare(char, char);
-bool is_alpha(char);
-bool is_num(char);
-bool is_alphanum(char);
-bool is_uppercase(char);
-bool is_lowercase(char);
 
 extern const char_mod Char;
 

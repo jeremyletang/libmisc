@@ -24,14 +24,17 @@
 #include <char>
 #include <option>
 
+bool is_uppercase(char c);
+bool is_lowercase(char c);
+
 int
 code(char c) {
     return (int)c;
 }
 
-char_option
+option(char)
 chr(int c) {
-    char_option res;
+    option(char) res;
 
     if (c < 0 || c > 127) {
         res.is = None;
