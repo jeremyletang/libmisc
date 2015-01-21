@@ -24,9 +24,10 @@
 #ifndef MISC_OPTION
 #define MISC_OPTION
 
+typedef unsigned char uchar;
+typedef unsigned short ushort;
 typedef unsigned int uint;
 typedef unsigned long ulong;
-typedef unsigned char uchar;
 
 typedef enum {
     Some,
@@ -46,6 +47,8 @@ typedef union { \
 
 make_option(char, char);
 make_option(uchar, uchar);
+make_option(short, short);
+make_option(ushort, ushort);
 make_option(int, int);
 make_option(uint, uint);
 make_option(long, long);
