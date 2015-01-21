@@ -1,4 +1,3 @@
-// <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
 // Copyright (c) 2015 Jeremy Letang
@@ -22,50 +21,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_LL_OPTION
-#define MISC_LL_OPTION
+#include <format>
+#include <stdio.h>
 
-// common stuff
+int
+print(const char* fmt, ...) {
+    int printed_char;
+    va_list ap;
 
-typedef enum {
-    Some,
-    None
-} option_result;
+    va_start(ap, fmt);
+    printed_char = vprintf(fmt, ap);
+    va_end(ap);
+    return printed_char;
+}
 
-// int stuff
+const format_mod Format = {
+    .print = print
+};
 
-typedef struct {
-    option_result is;
-    int val;
-} some_int;
-
-typedef union {
-    option_result is;
-    some_int some;
-} int_option;
-
-// char stuff
-
-typedef struct {
-    option_result is;
-    char val;
-} some_char;
-
-typedef union {
-    option_result is;
-    some_char some;
-} char_option;
-
-// string stuff
-
-typedef struct {
-    option_result is;
-    char* val;
-} some_str;
-
-typedef union {
-    option_result is;
-    some_str some;
-} str_option;
-
-#endif

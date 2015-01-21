@@ -22,50 +22,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_LL_OPTION
-#define MISC_LL_OPTION
+#ifndef MISC_LL_FORMAT
+#define MISC_LL_FORMAT
 
-// common stuff
-
-typedef enum {
-    Some,
-    None
-} option_result;
-
-// int stuff
+#include <stdarg.h>
 
 typedef struct {
-    option_result is;
-    int val;
-} some_int;
+    int (*print)(const char*, ...);
+} format_mod;
 
-typedef union {
-    option_result is;
-    some_int some;
-} int_option;
+int print(const char*, ...);
 
-// char stuff
-
-typedef struct {
-    option_result is;
-    char val;
-} some_char;
-
-typedef union {
-    option_result is;
-    some_char some;
-} char_option;
-
-// string stuff
-
-typedef struct {
-    option_result is;
-    char* val;
-} some_str;
-
-typedef union {
-    option_result is;
-    some_str some;
-} str_option;
+extern const format_mod Format;
 
 #endif

@@ -1,7 +1,8 @@
 // <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Jeremy Letang & Valentin Trinque
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +22,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <stdio.h>
-#import <string.h>
-#import <stdbool.h>
+#ifndef MISC_LL_STR
+#define MISC_LL_STR
 
-#import <option>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+#include <option>
 
 typedef struct {
-    int (*println)(char*);
-    int (*print)(char*);
-    unsigned (*len)(char*);
-    char_option (*get)(char*, unsigned);
-    bool (*set)(char*, int, char);
+    size_t (*len)(const char*);
+    char_option (*get)(const char*, unsigned);
+    bool (*set)(const char*, int, char);
     char* (*create)(int);
     char* (*make)(int, char);
     char* (*copy)(char*);
@@ -58,11 +60,9 @@ typedef struct {
     int (*compare)(char*, char*);
 } str_mod;
 
-int println(char*);
-int print(char*);
-unsigned len(char*);
-char_option get(char*, unsigned);
-bool set(char*, int, char);
+size_t len(const char*);
+char_option get(const char*, unsigned);
+bool set(const char*, int, char);
 char* create(int);
 char* make(int, char);
 char* copy(char*);
@@ -88,3 +88,5 @@ char* uncapitalize(char*);
 int compare(char*, char*);
 
 extern const str_mod Str;
+
+#endif
