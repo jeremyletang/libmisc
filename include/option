@@ -38,8 +38,7 @@ typedef enum {
 #define option(ty) ty##_option
 
 #define make_option(name, ty) \
-typedef struct { \
-    option_result is; \
+typedef struct { \ option_result is; \
     ty val; \
 } some_##name; \
 typedef union { \

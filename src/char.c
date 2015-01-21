@@ -127,8 +127,5 @@ const char_mod Char = {
     .lowercase = lowercase,
     .uppercase = uppercase,
     .compare = compare
-
-
-
 };
 
