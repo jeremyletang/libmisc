@@ -1,17 +1,12 @@
-#import <str>
-#import <option>
+#include <str>
+#include <option>
 
-void
-test_println() {
-    Str.println("hello world");
-}
-
-void
+static void
 test_len() {
-    printf("Str.len('hello world'): %u\n", Str.len("hello world"));
+    printf("Str.len('hello world'): %zu\n", Str.len("hello world"));
 }
 
-void
+static void
 test_get() {
     char_option t = Str.get("hello world", 3);
     switch (t.is) {
@@ -26,10 +21,8 @@ test_get() {
     }
 }
 
-int
-main() {
-    test_println();
+void
+test_str() {
     test_len();
     test_get();
-    return 0;
 }

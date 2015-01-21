@@ -1,6 +1,7 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Jeremy Letang & Valentin Trinque
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,27 +21,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <str>
+#include <str>
 
-int
-println(char* str) {
-    return printf("%s\n", str);
-}
+size_t
+len(const char* str) {
+    const char* it_str = str;
 
-int
-print(char* str) {
-    return printf("%s\n", str);
-}
-
-unsigned
-len(char* str) {
-    char *str_ = str;
-    while (*str_ != 0) { str_ += 1; }
-    return str_ - str;
+    while (*it_str != 0) { it_str += 1; }
+    return it_str - str;
 }
 
 char_option
-get(char* str, unsigned pos) {
+get(const char* str, unsigned pos) {
     char_option res;
 
     if (len(str) < pos) {
@@ -49,13 +41,11 @@ get(char* str, unsigned pos) {
         res.some.is = Some;
         res.some.val = str[pos];
     }
-
     return res;
 }
 
 const str_mod Str = {
-    .println = println,
-    .print = print,
     .len = len,
     .get = get
 };
+

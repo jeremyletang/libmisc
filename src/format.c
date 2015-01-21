@@ -1,4 +1,3 @@
-// <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
 // Copyright (c) 2015 Jeremy Letang
@@ -22,39 +21,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_LL_CHAR
-#define MISC_LL_CHAR
+#include <format>
+#include <stdio.h>
 
-#include <stdbool.h>
+int
+print(const char* fmt, ...) {
+    int printed_char;
+    va_list ap;
 
-#import <option>
+    va_start(ap, fmt);
+    printed_char = vprintf(fmt, ap);
+    va_end(ap);
+    return printed_char;
+}
 
-typedef struct {
-    int (*code)(char);
-    char_option (*chr)(int);
-    char* (*escaped)(char);
-    bool (*is_alpha)(char);
-    bool (*is_num)(char);
-    bool (*is_alphanum)(char);
-    bool (*is_uppercase)(char);
-    bool (*is_lowercase)(char);
-    char (*lowercase)(char);
-    char (*uppercase)(char);
-    int (*compare)(char, char);
-} char_mod;
+const format_mod Format = {
+    .print = print
+};
 
-int code(char);
-char_option chr(int);
-char *escaped(char);
-char lowercase(char);
-char uppercase(char);
-int compare(char, char);
-bool is_alpha(char);
-bool is_num(char);
-bool is_alphanum(char);
-bool is_uppercase(char);
-bool is_lowercase(char);
-
-extern const char_mod Char;
-
-#endif
