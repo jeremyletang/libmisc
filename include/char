@@ -1,7 +1,8 @@
 // <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Jeremy Letang & Valentin Trinque
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,13 +22,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <stdbool.h>
+#ifndef MISC_CORE_CHAR
+#define MISC_CORE_CHAR
+
+#include <stdbool.h>
 
 #import <option>
 
 typedef struct {
     int (*code)(char);
-    char_option (*chr)(int);
+    option(char)(*chr)(int);
     char* (*escaped)(char);
     bool (*is_alpha)(char);
     bool (*is_num)(char);
@@ -39,16 +43,6 @@ typedef struct {
     int (*compare)(char, char);
 } char_mod;
 
-int code(char);
-char_option chr(int);
-char *escaped(char);
-char lowercase(char);
-char uppercase(char);
-int compare(char, char);
-bool is_alpha(char);
-bool is_num(char);
-bool is_alphanum(char);
-bool is_uppercase(char);
-bool is_lowercase(char);
-
 extern const char_mod Char;
+
+#endif

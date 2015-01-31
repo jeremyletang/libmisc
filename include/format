@@ -1,3 +1,4 @@
+// <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
 // Copyright (c) 2015 Jeremy Letang
@@ -21,32 +22,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <str>
+#ifndef MISC_CORE_FORMAT
+#define MISC_CORE_FORMAT
 
-size_t
-len(const char* str) {
-    const char* it_str = str;
+#include <stdarg.h>
 
-    while (*it_str != 0) { it_str += 1; }
-    return it_str - str;
-}
+typedef struct {
+    int (*print)(const char*, ...);
+} format_mod;
 
+extern const format_mod Format;
 
-option(char)
-get(const char* str, unsigned pos) {
-    option(char) res;
-
-    if (len(str) < pos) {
-        res.is = None;
-    } else {
-        res.some.is = Some;
-        res.some.val = str[pos];
-    }
-    return res;
-}
-
-const str_mod Str = {
-    .len = len,
-    .get = get
-};
-
+#endif

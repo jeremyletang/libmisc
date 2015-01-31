@@ -21,32 +21,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <str>
+#include <format>
+#include <stdio.h>
 
-size_t
-len(const char* str) {
-    const char* it_str = str;
+int
+print(const char* fmt, ...) {
+    int printed_char;
+    va_list ap;
 
-    while (*it_str != 0) { it_str += 1; }
-    return it_str - str;
+    va_start(ap, fmt);
+    printed_char = vprintf(fmt, ap);
+    va_end(ap);
+    return printed_char;
 }
 
-
-option(char)
-get(const char* str, unsigned pos) {
-    option(char) res;
-
-    if (len(str) < pos) {
-        res.is = None;
-    } else {
-        res.some.is = Some;
-        res.some.val = str[pos];
-    }
-    return res;
-}
-
-const str_mod Str = {
-    .len = len,
-    .get = get
+const format_mod Format = {
+    .print = print
 };
 

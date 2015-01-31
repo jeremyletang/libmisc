@@ -1,7 +1,8 @@
 // <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Jeremy Letang & Valentin Trinque
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_OPTION
-#define MISC_OPTION
+#ifndef MISC_CORE_OPTION
+#define MISC_CORE_OPTION
 
 typedef unsigned char uchar;
 typedef unsigned short ushort;
@@ -34,10 +35,10 @@ typedef enum {
     None
 } option_result;
 
+#define option(ty) ty##_option
 
 #define make_option(name, ty) \
-typedef struct { \
-    option_result is; \
+typedef struct { \ option_result is; \
     ty val; \
 } some_##name; \
 typedef union { \

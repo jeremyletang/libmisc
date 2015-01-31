@@ -1,6 +1,7 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Jeremy Letang & Valentin Trinque
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,17 +21,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <char>
-#import <option>
+#include <char>
+#include <option>
+
+bool is_uppercase(char c);
+bool is_lowercase(char c);
 
 int
 code(char c) {
     return (int)c;
 }
 
-char_option
+option(char)
 chr(int c) {
-    char_option res;
+    option(char) res;
 
     if (c < 0 || c > 127) {
         res.is = None;
@@ -38,7 +42,6 @@ chr(int c) {
         res.some.is = Some;
         res.some.val = (char)c;
     }
-
     return res;
 }
 
@@ -52,7 +55,6 @@ lowercase(char c) {
     if (c >= 'A' && c <= 'Z') {
         c += 32;
     }
-
     return c;
 }
 
@@ -61,7 +63,6 @@ uppercase(char c) {
     if (c >= 'a' && c <= 'z') {
         c -= 32;
     }
-
     return c;
 }
 
@@ -71,7 +72,6 @@ compare(char c1, char c2) {
 
     if (c1 < c2) { res = -1; }
     else if (c1 > c2) { res = 1; }
-
     return res;
 }
 
@@ -128,3 +128,4 @@ const char_mod Char = {
     .uppercase = uppercase,
     .compare = compare
 };
+

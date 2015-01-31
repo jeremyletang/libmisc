@@ -1,7 +1,8 @@
 // <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Jeremy Letang & Valentin Trinque
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +22,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <stdio.h>
-#import <string.h>
-#import <stdbool.h>
+#ifndef MISC_CORE_STR
+#define MISC_CORE_STR
 
-#import <option>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+#include <option>
 
 typedef struct {
-    int (*println)(char*);
-    int (*print)(char*);
-    unsigned (*len)(char*);
-    char_option (*get)(char*, unsigned);
-    bool (*set)(char*, int, char);
+    size_t (*len)(const char*);
+    option(char) (*get)(const char*, unsigned);
+    bool (*set)(const char*, int, char);
     char* (*create)(int);
     char* (*make)(int, char);
     char* (*copy)(char*);
@@ -58,33 +60,6 @@ typedef struct {
     int (*compare)(char*, char*);
 } str_mod;
 
-int println(char*);
-int print(char*);
-unsigned len(char*);
-char_option get(char*, unsigned);
-bool set(char*, int, char);
-char* create(int);
-char* make(int, char);
-char* copy(char*);
-char* init(int, char(*)(int));
-void fill(char*, int, int, char);
-char* concat(char*, char**);
-void iter(char*, void(*)(char));
-void iteri(char*, void(*)(int, char));
-char* map(char(*)(char), char*);
-char* mapi(char(*)(int, char), char*);
-char* trim(char*);
-int index_(char*, char);
-int rindex_(char*, char);
-int index_from(char*, int, char);
-int rindex_from(char*, int, char);
-bool contains(char*, char);
-bool contains_from(char*, int, char);
-bool rcontains_from(char*, int, char);
-char* uppercase(char*);
-char* lowercase(char*);
-char* capitalize(char*);
-char* uncapitalize(char*);
-int compare(char*, char*);
-
 extern const str_mod Str;
+
+#endif
