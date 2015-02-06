@@ -8,13 +8,13 @@ test_len() {
 
 static void
 test_get() {
-    char_option t = Str.get("hello world", 3);
+    $option(char) t = Str.get("hello world", 3);
     switch (t.is) {
         case Some: printf("t is %c\n", t.some.val); break;
         case None: printf("t is None\n");
     }
 
-    char_option u = Str.get("hello world", 77);
+    $option(char) u = Str.get("hello world", 77);
     switch (u.is) {
         case Some: printf("u is %d\n", u.some.val); break;
         case None: printf("u is None\n");

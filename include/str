@@ -30,35 +30,67 @@
 #include <stdbool.h>
 
 #include <option>
+#include <types>
 
 typedef struct {
-    size_t (*len)(const char*);
-    option(char) (*get)(const char*, unsigned);
-    bool (*set)(const char*, int, char);
-    char* (*create)(int);
-    char* (*make)(int, char);
-    char* (*copy)(char*);
-    char* (*init)(int, char(*)(int));
-    void (*fill)(char*, int, int, char);
-    char* (*concat)(char*, char**);
-    void (*iter)(char*, void(*)(char));
+    int (*println)(str);
+    size_t (*len)(const str);
+    $option(char) (*get)(str, unsigned);
+    bool (*set)(str, int, char);
+    $option(str) (*create)(size_t);
+    $option(str) (*make)(size_t, char);
+    void (*drop)(str);
+    $option(str) (*copy)(str);
+    $option(str) (*init)(int, char(*)(int));
+    void (*fill)(str, int, int, char);
+    str (*concat)(str, str*);
+    void (*iter)(str, void(*)(char));
     void (*iteri)(char*, void(*)(int, char));
-    char* (*map)(char(*)(char), char*);
-    char* (*mapi)(char(*)(int, char), char*);
-    char* (*trim)(char*);
-    int (*index_)(char*, char);
-    int (*rindex_)(char*, char);
-    int (*index_from)(char*, int, char);
-    int (*rindex_from)(char*, int, char);
-    bool (*contains)(char*, char);
-    bool (*contains_from)(char*, int, char);
-    bool (*rcontains_from)(char*, int, char);
-    char* (*uppercase)(char*);
-    char* (*lowercase)(char*);
-    char* (*capitalize)(char*);
-    char* (*uncapitalize)(char*);
-    int (*compare)(char*, char*);
+    $option(str) (*map)(char(*)(char), str);
+    $option(str) (*mapi)(char(*)(int, char), str);
+    $option(str) (*trim)(str);
+    int (*index_)(str, char);
+    int (*rindex_)(str, char);
+    int (*index_from)(str, int, char);
+    int (*rindex_from)(str, int, char);
+    bool (*contains)(str, char);
+    bool (*contains_from)(str, int, char);
+    bool (*rcontains_from)(str, int, char);
+    $option(str) (*uppercase)(str);
+    $option(str) (*lowercase)(str);
+    $option(str) (*capitalize)(str);
+    $option(str) (*uncapitalize)(str);
+    $option(str) (*compare)(str, str);
 } str_mod;
+
+int println(str);
+size_t len(const str);
+$option(char) get(str, unsigned);
+bool set(str, int, char);
+$option(str) create(size_t);
+$option(str) make(size_t, char);
+void drop(str);
+$option(str) copy(str);
+$option(str) init(int, char(*)(int));
+void fill(str, int, int, char);
+$option(str) concat(str, str*);
+void iter(str, void(*)(char));
+void iteri(str, void(*)(int, char));
+$option(str) map(char(*)(char), str);
+$option(str) mapi(char(*)(int, char), str);
+$option(str) trim(str);
+int index_(str, char);
+int rindex_(str, char);
+int index_from(str, int, char);
+int rindex_from(str, int, char);
+bool contains(str, char);
+bool contains_from(str, int, char);
+bool rcontains_from(str, int, char);
+$option(str) uppercase(str);
+$option(str) lowercase(str);
+$option(str) capitalize(str);
+$option(str) uncapitalize(str);
+int compare(str, str);
 
 extern const str_mod Str;
 

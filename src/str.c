@@ -23,30 +23,90 @@
 
 #include <str>
 
-size_t
-len(const char* str) {
-    const char* it_str = str;
+#include <stdlib.h>
 
-    while (*it_str != 0) { it_str += 1; }
-    return it_str - str;
+// private function
+
+void
+priv_iter(str s, char (*f)(char), size_t len) {
+    while (len != 0) {
+        s[len] = f(s[len]);
+        len -= 1;
+    }
+}
+
+// api function
+
+int
+println(str s) {
+    return printf("%s\n", s);
+}
+
+size_t
+len(const str s) {
+    str it_s = s;
+
+    while (*it_s != 0) { it_s += 1; }
+    return it_s - s;
 }
 
 
-option(char)
-get(const char* str, unsigned pos) {
-    option(char) res;
+$option(char)
+get(str s, unsigned pos) {
+    $option(char) res;
 
-    if (len(str) < pos) {
+    if (len(s) < pos) {
         res.is = None;
     } else {
         res.some.is = Some;
-        res.some.val = str[pos];
+        res.some.val = s[pos];
     }
     return res;
 }
 
+$option(str)
+create(size_t size) {
+    $option(str) res;
+    str s = malloc(sizeof(char) * size);
+
+    if (s == nullptr) {
+        res.is = None;
+    } else {
+        res.some.is = Some;
+        res.some.val = s;
+    }
+
+    return res;
+}
+
+$option(str)
+make(size_t size, char c) {
+    $option(str) res;
+    res = create(size);
+
+    switch (res.is) {
+        case Some: {
+
+            // res.some.val;
+            break;
+        }
+        case None: break;
+    }
+
+    return res;
+}
+
+void
+drop(str s) {
+    free(s);
+    s = nullptr;
+}
+
 const str_mod Str = {
     .len = len,
-    .get = get
+    .get = get,
+    .create = create,
+    .make = make,
+    .drop = drop
 };
 

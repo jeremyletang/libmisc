@@ -25,10 +25,7 @@
 #ifndef MISC_CORE_OPTION
 #define MISC_CORE_OPTION
 
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
+#include <types>
 
 typedef enum {
     Some,
@@ -37,8 +34,9 @@ typedef enum {
 
 #define option(ty) ty##_option
 
-#define make_option(name, ty) \
-typedef struct { \ option_result is; \
+#define $make_option(name, ty) \
+typedef struct { \
+    option_result is; \
     ty val; \
 } some_##name; \
 typedef union { \
@@ -46,16 +44,18 @@ typedef union { \
     some_##name some; \
 } name##_option;
 
-make_option(char, char);
-make_option(uchar, uchar);
-make_option(short, short);
-make_option(ushort, ushort);
-make_option(int, int);
-make_option(uint, uint);
-make_option(long, long);
-make_option(ulong, ulong);
-make_option(float, float);
-make_option(double, double);
-make_option(str, char*);
+#define $option(ty) ty##_option
+
+$make_option(char, char);
+$make_option(uchar, uchar);
+$make_option(short, short);
+$make_option(ushort, ushort);
+$make_option(int, int);
+$make_option(uint, uint);
+$make_option(long, long);
+$make_option(ulong, ulong);
+$make_option(float, float);
+$make_option(double, double);
+$make_option(str, char*);
 
 #endif
