@@ -25,9 +25,11 @@
 #ifndef MISC_CORE_FORMAT
 #define MISC_CORE_FORMAT
 
+#include <prelude>
+
 #include <stdarg.h>
 
-typedef struct {
+mod {
     int (*print)(const char*, ...);
 } format_mod;
 
