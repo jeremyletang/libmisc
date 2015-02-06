@@ -32,8 +32,6 @@ typedef enum {
     None
 } option_result;
 
-#define option(ty) ty##_option
-
 #define $make_option(name, ty) \
 typedef struct { \
     option_result is; \

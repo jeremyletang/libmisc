@@ -32,9 +32,9 @@ code(char c) {
     return (int)c;
 }
 
-option(char)
+$option(char)
 chr(int c) {
-    option(char) res;
+    $option(char) res;
 
     if (c < 0 || c > 127) {
         res.is = None;

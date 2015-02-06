@@ -26,3 +26,11 @@ test_str() {
     test_len();
     test_get();
 }
+
+
+int
+main() {
+    test_str();
+
+    return 0;
+}
