@@ -26,3 +26,8 @@ endif()
 add_executable (tests ${sources})
 
 target_link_libraries (tests misc)
+
+set_target_properties(tests
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/target"
+)

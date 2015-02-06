@@ -33,4 +33,9 @@ endif()
 
 add_library (misc SHARED ${sources})
 
+set_target_properties(misc
+    PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/target"
+)
+
 add_subdirectory (tests)
