@@ -25,12 +25,12 @@
 #ifndef MISC_CORE_STR
 #define MISC_CORE_STR
 
+#include <option>
+#include <prelude>
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-
-#include <option>
-#include <prelude>
 
 mod {
     int (*println)(str);

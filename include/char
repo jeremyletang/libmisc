@@ -26,10 +26,9 @@
 #define MISC_CORE_CHAR
 
 #include <prelude>
+#include <option>
 
 #include <stdbool.h>
-
-#import <option>
 
 mod {
     int (*code)(char);
