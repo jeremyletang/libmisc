@@ -28,9 +28,8 @@
 
 void
 priv_iter_len(str s, char (*f)(char), size_t len) {
-    while (len != 0) {
-        s[len] = f(s[len]);
-        len -= 1;
+    for (uint i = 0; i < len; i++) {
+        s[i] = f(s[i]);
     }
 }
 
@@ -59,7 +58,7 @@ len(const str s) {
 
 
 $option(char)
-get(str s, unsigned pos) {
+get(str s, size_t pos) {
     $option(char) res;
 
     if (len(s) < pos) {
@@ -193,6 +192,78 @@ mapi(char(*fn)(int, char), str s) {
     return s_map;
 }
 
+bool
+fill(str s, size_t start, size_t l, char c) {
+    size_t size = len(s);
+    if (start >= size || l + start >= size) {
+        return false;
+    }
+    for (size_t i = start; i < start + l; i++) {
+        s[i] = c;
+    }
+    return true;
+}
+
+void
+iter(str s, void (*f)(char)) {
+    size_t size = len(s);
+    for (size_t i = 0; i < size; i++) {
+        f(s[i]);
+    }
+}
+
+void
+iteri(str s, void (*f)(size_t, char)) {
+    size_t size = len(s);
+    for (size_t i = 0; i < size; i++) {
+        f(i, s[i]);
+    }
+}
+
+$option(size_t)
+index_from(const str s, size_t index, char c) {
+    $option(size_t) res;
+    res.is = None;
+    size_t size = len(s);
+    size_t i = index + 1;
+    while (i < size && res.is == None) {
+        if (s[i] == c) {
+            res.some.is = Some;
+            res.some.val = i;
+        }
+        i += 1;
+    }
+    return res;
+}
+
+$option(size_t)
+rindex_from(const str s, size_t rindex, char c) {
+    $option(size_t) res;
+    res.is = None;
+    size_t size = len(s);
+    size_t ri = rindex - 1;
+    if (rindex > 0 && ri < size) {
+        while (ri != 0 && res.is == None) {
+            if (s[ri] == c) {
+                res.some.is = Some;
+                res.some.val = ri;
+            }
+            ri -= 1;
+        }
+    }
+    return res;
+}
+
+$option(size_t)
+index_(const str s, char c) {
+    return index_from(s, -1, c);
+}
+
+$option(size_t)
+rindex_(const str s, char c) {
+    return rindex_from(s, len(s), c);
+}
+
 const str_mod Str = {
     .len = len,
     .get = get,
@@ -202,6 +273,13 @@ const str_mod Str = {
     .copy = copy,
     .init = init,
     .map = map,
-    .mapi = mapi
+    .mapi = mapi,
+    .fill = fill,
+    .iter = iter,
+    .iteri = iteri,
+    .index_from = index_from,
+    .rindex_from = rindex_from,
+    .index = index_,
+    .rindex = rindex_
 };
 

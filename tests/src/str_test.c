@@ -4,21 +4,21 @@
 
 static void
 test_len() {
-    printf("Str.len('hello world'): %zu\n", Str.len("hello world"));
+    printf("len: %zu\n", Str.len("hello world"));
 }
 
 static void
 test_get() {
     $option(char) t = Str.get("hello world", 3);
     switch (t.is) {
-        case Some: printf("t is %c\n", t.some.val); break;
-        case None: printf("t is None\n"); break;
+        case Some: printf("get: %c\n", t.some.val); break;
+        case None: printf("get: None\n"); break;
     }
 
     $option(char) u = Str.get("hello world", 77);
     switch (u.is) {
-        case Some: printf("u is %d\n", u.some.val); break;
-        case None: printf("u is None\n"); break;
+        case Some: printf("get: %d\n", u.some.val); break;
+        case None: printf("get: None\n"); break;
     }
 }
 
@@ -26,8 +26,8 @@ static void
 test_make() {
     $option(str) s = Str.make(10, '*');
     switch (s.is) {
-        case Some: printf("s is %s\n", s.some.val); break;
-        case None: printf("s is None\n"); break;
+        case Some: printf("make: %s\n", s.some.val); break;
+        case None: printf("make: None\n"); break;
     }
     Str.drop(s.some.val);
 }
@@ -88,6 +88,57 @@ test_mapi() {
 }
 
 static void
+test_fill() {
+    $option(str) s = Str.make(10, '*');
+    Str.fill(s.some.val, 2, 3, '.');
+    printf("fill: %s\n", s.some.val);
+}
+
+void test_func_1(char c) {
+    printf("%c", c);
+}
+
+static void
+test_iter() {
+    $option(str) s = Str.make(10, '*');
+    printf("iter: ");
+    Str.iter(s.some.val, &test_func_1);
+    printf("\n");
+}
+
+void test_func_2(size_t i, char c) {
+    printf("[%zu:%c]", i, c);
+}
+
+static void
+test_iteri() {
+    $option(str) s = Str.make(10, '*');
+    printf("iteri: ");
+    Str.iteri(s.some.val, &test_func_2);
+    printf("\n");
+}
+
+static void
+test_index() {
+    $option(str) s = Str.make(10, '*');
+    $option(size_t) pos = Str.index(s.some.val, '0');
+    switch (pos.is) {
+        case Some: printf("index: %zu\n", pos.some.val); break;
+        case None: printf("index: None\n"); break;
+    }
+}
+
+static void
+test_rindex() {
+    $option(str) s = Str.make(10, '*');
+    $option(size_t) pos = Str.rindex(s.some.val, '*');
+    switch (pos.is) {
+        case Some: printf("rindex: %zu\n", pos.some.val); break;
+        case None: printf("rindex: None\n"); break;
+    }
+}
+
+static void
 test_auto_str_make() {
     auto_str s = Str.make(10, '*').some.val;
     if (s == nullptr) {
@@ -104,6 +155,11 @@ test_str() {
     test_init();
     test_map();
     test_mapi();
+    test_fill();
+    test_iter();
+    test_iteri();
+    test_index();
+    test_rindex();
 
     test_auto_str_make();
 }
