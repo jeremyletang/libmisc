@@ -1,7 +1,8 @@
 // <libmisc> -*- C -*-
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Jeremy Letang & Valentin Trinque
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,13 +22,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef MISC_CORE_TYPES
-#define MISC_CORE_TYPES
+#ifndef MISC_CORE_PRELUDE
+#define MISC_CORE_PRELUDE
 
-typedef char* str;
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
+#include <types>
+
+#define mod typedef struct
+#define export extern const
+#define nullptr NULL
 
 #endif

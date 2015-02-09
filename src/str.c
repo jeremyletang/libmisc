@@ -24,14 +24,25 @@
 #include <str>
 
 #include <stdlib.h>
+#include <stdio.h>
 
 // private function
 
 void
-priv_iter(str s, char (*f)(char), size_t len) {
+priv_iter_len(str s, char (*f)(char), size_t len) {
     while (len != 0) {
         s[len] = f(s[len]);
         len -= 1;
+    }
+}
+
+void
+priv_iter(str s, char (*f)(char)) {
+    str s_it = s;
+
+    while (s_it != 0) {
+        *s_it = f(*s_it);
+        s_it++;
     }
 }
 
@@ -67,11 +78,12 @@ get(str s, unsigned pos) {
 $option(str)
 create(size_t size) {
     $option(str) res;
-    str s = malloc(sizeof(char) * size);
+    str s = malloc(sizeof(char) * (size + 1));
 
     if (s == nullptr) {
         res.is = None;
     } else {
+        s[size] = 0;
         res.some.is = Some;
         res.some.val = s;
     }
@@ -81,13 +93,15 @@ create(size_t size) {
 
 $option(str)
 make(size_t size, char c) {
-    $option(str) res;
-    res = create(size);
+    $option(str) res = create(size);
 
     switch (res.is) {
         case Some: {
-
-            // res.some.val;
+            str s_it = res.some.val;
+            while (s_it != res.some.val + size) {
+                *s_it = c;
+                s_it += 1;
+            }
             break;
         }
         case None: break;
