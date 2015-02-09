@@ -21,12 +21,22 @@ test_get() {
     }
 }
 
+static void
+test_make() {
+    $option(str) s = Str.make(10, '*');
+    switch (s.is) {
+        case Some: printf("s is %s\n", s.some.val); break;
+        case None: printf("s is None\n");
+    }
+    Str.drop(s.some.val);
+}
+
 void
 test_str() {
     test_len();
     test_get();
+    test_make();
 }
-
 
 int
 main() {
