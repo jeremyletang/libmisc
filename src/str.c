@@ -153,6 +153,46 @@ init(size_t size, char(*fn)(int)) {
     return s_init;
 }
 
+$option(str)
+map(char(*fn)(char), str s) {
+    size_t size = len(s);
+    $option(str) s_map = create(size);
+
+    switch (s_map.is) {
+        case Some: {
+            uint it = 0;
+            while (it != size) {
+                s_map.some.val[it] = fn(s[it]);
+                it += 1;
+            }
+            break;
+        }
+        case None: break;
+    }
+
+    return s_map;
+}
+
+$option(str)
+mapi(char(*fn)(int, char), str s) {
+    size_t size = len(s);
+    $option(str) s_map = create(size);
+
+    switch (s_map.is) {
+        case Some: {
+            uint it = 0;
+            while (it != size) {
+                s_map.some.val[it] = fn(it, s[it]);
+                it += 1;
+            }
+            break;
+        }
+        case None: break;
+    }
+
+    return s_map;
+}
+
 const str_mod Str = {
     .len = len,
     .get = get,
@@ -160,6 +200,8 @@ const str_mod Str = {
     .make = make,
     .drop = drop,
     .copy = copy,
-    .init = init
+    .init = init,
+    .map = map,
+    .mapi = mapi
 };
 
