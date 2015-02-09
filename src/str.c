@@ -26,8 +26,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// private function
-
 void
 priv_iter_len(str s, char (*f)(char), size_t len) {
     while (len != 0) {
@@ -45,8 +43,6 @@ priv_iter(str s, char (*f)(char)) {
         s_it++;
     }
 }
-
-// api function
 
 int
 println(str s) {
@@ -90,11 +86,6 @@ create(size_t size) {
 
     return res;
 }
-
-// str
-// create_unsafe(size_t size) {
-//     return malloc(sizeof(char) * (size + 1));
-// }
 
 $option(str)
 make(size_t size, char c) {
