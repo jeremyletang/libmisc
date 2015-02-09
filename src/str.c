@@ -91,6 +91,11 @@ create(size_t size) {
     return res;
 }
 
+// str
+// create_unsafe(size_t size) {
+//     return malloc(sizeof(char) * (size + 1));
+// }
+
 $option(str)
 make(size_t size, char c) {
     $option(str) res = create(size);
