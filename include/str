@@ -41,7 +41,7 @@ mod {
     $option(str) (*make)(size_t, char);
     void (*drop)(str);
     $option(str) (*copy)(str);
-    $option(str) (*init)(int, char(*)(int));
+    $option(str) (*init)(size_t, char(*)(int));
     void (*fill)(str, int, int, char);
     str (*concat)(str, str*);
     void (*iter)(str, void(*)(char));
