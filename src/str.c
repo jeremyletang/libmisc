@@ -112,11 +112,96 @@ drop(str s) {
     s = nullptr;
 }
 
+$option(str)
+copy(str s) {
+    size_t size = len(s);
+    $option(str) s_copy = create(size);
+
+    switch (s_copy.is) {
+        case Some: {
+            str s_copy_it = s_copy.some.val;
+            str s_it = s;
+            while (*s_it != 0) {
+                *s_copy_it = *s_it;
+                s_it += 1;
+                s_copy_it += 1;
+            }
+            break;
+        }
+        case None: break;
+    }
+
+    return s_copy;
+}
+
+$option(str)
+init(size_t size, char(*fn)(int)) {
+    $option(str) s_init = create(size);
+
+    switch (s_init.is) {
+        case Some: {
+            uint it = 0;
+            while (it != size) {
+                s_init.some.val[it] = fn(it);
+                it += 1;
+            }
+            break;
+        }
+        case None: break;
+    }
+
+    return s_init;
+}
+
+$option(str)
+map(char(*fn)(char), str s) {
+    size_t size = len(s);
+    $option(str) s_map = create(size);
+
+    switch (s_map.is) {
+        case Some: {
+            uint it = 0;
+            while (it != size) {
+                s_map.some.val[it] = fn(s[it]);
+                it += 1;
+            }
+            break;
+        }
+        case None: break;
+    }
+
+    return s_map;
+}
+
+$option(str)
+mapi(char(*fn)(int, char), str s) {
+    size_t size = len(s);
+    $option(str) s_map = create(size);
+
+    switch (s_map.is) {
+        case Some: {
+            uint it = 0;
+            while (it != size) {
+                s_map.some.val[it] = fn(it, s[it]);
+                it += 1;
+            }
+            break;
+        }
+        case None: break;
+    }
+
+    return s_map;
+}
+
 const str_mod Str = {
     .len = len,
     .get = get,
     .create = create,
     .make = make,
-    .drop = drop
+    .drop = drop,
+    .copy = copy,
+    .init = init,
+    .map = map,
+    .mapi = mapi
 };
 
