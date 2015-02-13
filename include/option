@@ -27,6 +27,8 @@
 
 #include <types>
 
+#include <stdlib.h>
+
 typedef enum {
     Some,
     None
@@ -55,5 +57,6 @@ $make_option(ulong, ulong);
 $make_option(float, float);
 $make_option(double, double);
 $make_option(str, char*);
+$make_option(size_t, size_t);
 
 #endif
