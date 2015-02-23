@@ -32,31 +32,34 @@
 typedef enum {
     Some,
     None
-} option_result;
+} misc_option_state;
 
-#define $make_option(name, ty) \
-typedef struct { \
-    option_result is; \
-    ty val; \
-} some_##name; \
-typedef union { \
-    option_result is; \
-    some_##name some; \
-} name##_option;
+#define $make_named_option(name, type)      \
+typedef struct {                            \
+    misc_option_state is;                   \
+    type val;                               \
+} misc_some_##name;                         \
+typedef union {                             \
+    misc_option_state is;                   \
+    misc_some_##name some;                  \
+} misc_##name##_option;
 
-#define $option(ty) ty##_option
+#define $option(type) misc_##type##_option
 
-$make_option(char, char);
-$make_option(uchar, uchar);
-$make_option(short, short);
-$make_option(ushort, ushort);
-$make_option(int, int);
-$make_option(uint, uint);
-$make_option(long, long);
-$make_option(ulong, ulong);
-$make_option(float, float);
-$make_option(double, double);
-$make_option(str, char*);
-$make_option(size_t, size_t);
+// In case where the type is also the name
+#define $make_option(type) $make_named_option(type, type)
+
+$make_option(char);
+$make_option(uchar);
+$make_option(short);
+$make_option(ushort);
+$make_option(int);
+$make_option(uint);
+$make_option(long);
+$make_option(ulong);
+$make_option(float);
+$make_option(double);
+$make_option(size_t);
+$make_named_option(str, char*);
 
 #endif
