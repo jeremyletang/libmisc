@@ -48,12 +48,20 @@ println(str s) {
     return printf("%s\n", s);
 }
 
-size_t
+$str_result(size_t)
 len(const str s) {
-    str it_s = s;
+    $str_result(size_t) res;
 
-    while (*it_s != 0) { it_s += 1; }
-    return it_s - s;
+    if (s == nullptr) {
+        res.is = Err;
+        res.err.val = null_ptr;
+    } else {
+        str it_s = s;
+        while (*it_s != 0) { it_s += 1; }
+        res.is = Ok;
+        res.ok.val = it_s - s;
+    }
+    return res;
 }
 
 
@@ -61,7 +69,7 @@ $option(char)
 get(str s, size_t pos) {
     $option(char) res;
 
-    if (len(s) < pos) {
+    if (len(s).ok.val < pos) {
         res.is = None;
     } else {
         res.some.is = Some;
@@ -113,7 +121,7 @@ drop(str s) {
 
 $option(str)
 copy(str s) {
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     $option(str) s_copy = create(size);
 
     switch (s_copy.is) {
@@ -154,7 +162,7 @@ init(size_t size, char(*fn)(int)) {
 
 $option(str)
 map(char(*fn)(char), str s) {
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     $option(str) s_map = create(size);
 
     switch (s_map.is) {
@@ -174,7 +182,7 @@ map(char(*fn)(char), str s) {
 
 $option(str)
 mapi(char(*fn)(int, char), str s) {
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     $option(str) s_map = create(size);
 
     switch (s_map.is) {
@@ -194,7 +202,7 @@ mapi(char(*fn)(int, char), str s) {
 
 bool
 fill(str s, size_t start, size_t l, char c) {
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     if (start >= size || l + start >= size) {
         return false;
     }
@@ -206,7 +214,7 @@ fill(str s, size_t start, size_t l, char c) {
 
 void
 iter(str s, void (*f)(char)) {
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     for (size_t i = 0; i < size; i++) {
         f(s[i]);
     }
@@ -214,7 +222,7 @@ iter(str s, void (*f)(char)) {
 
 void
 iteri(str s, void (*f)(size_t, char)) {
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     for (size_t i = 0; i < size; i++) {
         f(i, s[i]);
     }
@@ -224,7 +232,7 @@ $option(size_t)
 index_from(const str s, size_t index, char c) {
     $option(size_t) res;
     res.is = None;
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     size_t i = index + 1;
     while (i < size && res.is == None) {
         if (s[i] == c) {
@@ -240,7 +248,7 @@ $option(size_t)
 rindex_from(const str s, size_t rindex, char c) {
     $option(size_t) res;
     res.is = None;
-    size_t size = len(s);
+    size_t size = len(s).ok.val;
     size_t ri = rindex - 1;
     if (rindex > 0 && ri < size) {
         while (ri != 0 && res.is == None) {
@@ -261,7 +269,7 @@ index_(const str s, char c) {
 
 $option(size_t)
 rindex_(const str s, char c) {
-    return rindex_from(s, len(s), c);
+    return rindex_from(s, len(s).ok.val, c);
 }
 
 const str_mod Str = {

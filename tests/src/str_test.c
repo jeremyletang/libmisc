@@ -4,7 +4,16 @@
 
 static void
 test_len() {
-    printf("len: %zu\n", Str.len("hello world"));
+    $str_result(size_t) length = Str.len("hello world");
+    if (length.is == Err) {
+        switch (length.err.val) {
+            case null_ptr: printf("len: null_ptr"); break;
+            case out_of_bounds: printf("len: out_of_bounds"); break;
+            case max_length: printf("len: max_length"); break;
+        }
+    } else {
+        printf("len: %zu\n", length.ok.val);
+    }
 }
 
 static void
