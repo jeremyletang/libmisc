@@ -46,7 +46,7 @@ $make_common_result(misc_str_error);
 mod {
     int (*println)(str);
     $str_result(size_t) (*len)(const str);
-    $option(char) (*get)(str, size_t);
+    $str_result(char) (*get)(const str, size_t);
     bool (*set)(str, int, char);
     $option(str) (*create)(size_t);
     $option(str) (*make)(size_t, char);

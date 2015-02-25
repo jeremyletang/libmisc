@@ -2,32 +2,48 @@
 #include <auto_str>
 #include <option>
 
+static
+void
+process_str_err(misc_str_error err) {
+    switch (err) {
+        case null_ptr: printf("null_ptr\n"); break;
+        case out_of_bounds: printf("out_of_bounds\n"); break;
+        case max_length: printf("max_length\n"); break;
+    }
+}
+
 static void
 test_len() {
-    $str_result(size_t) length = Str.len("hello world");
-    if (length.is == Err) {
-        switch (length.err.val) {
-            case null_ptr: printf("len: null_ptr"); break;
-            case out_of_bounds: printf("len: out_of_bounds"); break;
-            case max_length: printf("len: max_length"); break;
-        }
+    $str_result(size_t) res = Str.len("hello world");
+
+    printf("len: ");
+    if (res.is == Err) {
+        process_str_err(res.err.val);
     } else {
-        printf("len: %zu\n", length.ok.val);
+        printf("%zu\n", res.ok.val);
     }
 }
 
 static void
 test_get() {
-    $option(char) t = Str.get("hello world", 3);
-    switch (t.is) {
-        case Some: printf("get: %c\n", t.some.val); break;
-        case None: printf("get: None\n"); break;
+    $str_result(char) res;
+
+    // Should succeed
+    res = Str.get("hello world", 3);
+    printf("get: ");
+    if (res.is == Err) {
+        process_str_err(res.err.val);
+    } else {
+        printf("%c\n", res.ok.val);
     }
 
-    $option(char) u = Str.get("hello world", 77);
-    switch (u.is) {
-        case Some: printf("get: %d\n", u.some.val); break;
-        case None: printf("get: None\n"); break;
+    // SHould fail
+    res = Str.get("hello world", 77);
+    printf("get: ");
+    if (res.is == Err) {
+        process_str_err(res.err.val);
+    } else {
+        printf("%c\n", res.ok.val);
     }
 }
 

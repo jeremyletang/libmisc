@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 #include <str>
+#include <internal/check_error>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -52,30 +53,27 @@ $str_result(size_t)
 len(const str s) {
     $str_result(size_t) res;
 
-    if (s == nullptr) {
-        res.is = Err;
-        res.err.val = null_ptr;
-    } else {
-        str it_s = s;
-        while (*it_s != 0) { it_s += 1; }
-        res.is = Ok;
-        res.ok.val = it_s - s;
-    }
+    $fail_if_null(s, res)
+    str it_s = s;
+    while (*it_s != 0) { it_s += 1; }
+    res.is = Ok;
+    res.ok.val = it_s - s;
     return res;
 }
 
+$str_result(char)
+get(const str s, size_t pos) {
+    $str_result(char) get_res;
+    $str_result(size_t) len_res;
+    size_t length;
 
-$option(char)
-get(str s, size_t pos) {
-    $option(char) res;
-
-    if (len(s).ok.val < pos) {
-        res.is = None;
-    } else {
-        res.some.is = Some;
-        res.some.val = s[pos];
-    }
-    return res;
+    $fail_if_null(s, get_res);
+    len_res = len(s);
+    length = $try(len_res, get_res);
+    $fail_if_out_of_bounds(pos, length, get_res);
+    get_res.is = Ok;
+    get_res.ok.val = s[pos];
+    return get_res;
 }
 
 $option(str)
