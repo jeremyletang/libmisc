@@ -1,0 +1,68 @@
+// <libmisc> -*- C -*-
+// The MIT License (MIT)
+//
+// Copyright (c) 2015 Jeremy Letang
+// Copyright (c) 2015 Valentin Trinque
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+#ifndef MISC_CORE_RESULT
+#define MISC_CORE_RESULT
+
+#include <types>
+
+#include <stdlib.h>
+
+typedef enum {
+    Ok,
+    Err
+} misc_result_state;
+
+#define $make_result(type_ok, type_err)     \
+typedef struct {                            \
+    misc_result_state is;                   \
+    type_ok val;                            \
+} misc_##type_ok##_##type_err##_ok;         \
+typedef struct {                            \
+    misc_result_state is;                   \
+    type_err val;                           \
+} misc_##type_ok##_##type_err##_err;        \
+typedef union {                             \
+    misc_result_state is;                   \
+    misc_##type_ok##_##type_err##_ok ok;    \
+    misc_##type_ok##_##type_err##_err err;  \
+} misc_##type_ok##_##type_err##_result;
+
+#define $result(type_ok, type_err) misc_##type_ok##_##type_err##_result
+
+#define $make_common_result(type_err)   \
+$make_result(char, type_err)            \
+$make_result(uchar, type_err);          \
+$make_result(short, type_err);          \
+$make_result(ushort, type_err);         \
+$make_result(int, type_err);            \
+$make_result(uint, type_err);           \
+$make_result(long, type_err);           \
+$make_result(ulong, type_err);          \
+$make_result(float, type_err);          \
+$make_result(double, type_err);         \
+$make_result(size_t, type_err);         \
+$make_result(str, type_err);
+
+#endif

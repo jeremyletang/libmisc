@@ -26,16 +26,27 @@
 #define MISC_CORE_STR
 
 #include <option>
+#include <result>
 #include <prelude>
 
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
+typedef enum {
+    out_of_bounds,
+    max_length,
+    null_ptr
+} misc_str_error;
+
+$make_common_result(misc_str_error);
+
+#define $str_result(type) $result(type, misc_str_error)
+
 mod {
     int (*println)(str);
-    size_t (*len)(const str);
-    $option(char) (*get)(str, size_t);
+    $str_result(size_t) (*len)(const str);
+    $str_result(char) (*get)(const str, size_t);
     bool (*set)(str, int, char);
     $option(str) (*create)(size_t);
     $option(str) (*make)(size_t, char);
