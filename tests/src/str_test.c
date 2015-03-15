@@ -1,6 +1,7 @@
 #include <str>
 #include <auto_str>
 #include <option>
+#include <str_io>
 
 static
 void
@@ -176,6 +177,13 @@ test_auto_str_make() {
     }
 }
 
+static void
+test_str_io_write() {
+    io_stream ios = IO.cerr();
+    StrIO.write("hello world\n", ios);
+    IO.close(ios);
+}
+
 void
 test_str() {
     test_len();
@@ -190,6 +198,8 @@ test_str() {
     test_iteri();
     test_index();
     test_rindex();
+
+    test_str_io_write();
 
     test_auto_str_make();
 }
