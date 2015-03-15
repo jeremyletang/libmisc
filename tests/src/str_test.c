@@ -1,6 +1,7 @@
 #include <str>
 #include <auto_str>
 #include <option>
+#include <str_io>
 
 static
 void
@@ -117,6 +118,7 @@ test_fill() {
     $option(str) s = Str.make(10, '*');
     Str.fill(s.some.val, 2, 3, '.');
     printf("fill: %s\n", s.some.val);
+    Str.drop(s.some.val);
 }
 
 void test_func_1(char c) {
@@ -129,6 +131,7 @@ test_iter() {
     printf("iter: ");
     Str.iter(s.some.val, &test_func_1);
     printf("\n");
+    Str.drop(s.some.val);
 }
 
 void test_func_2(size_t i, char c) {
@@ -141,6 +144,7 @@ test_iteri() {
     printf("iteri: ");
     Str.iteri(s.some.val, &test_func_2);
     printf("\n");
+    Str.drop(s.some.val);
 }
 
 static void
@@ -151,6 +155,7 @@ test_index() {
         case Some: printf("index: %zu\n", pos.some.val); break;
         case None: printf("index: None\n"); break;
     }
+    Str.drop(s.some.val);
 }
 
 static void
@@ -161,6 +166,7 @@ test_rindex() {
         case Some: printf("rindex: %zu\n", pos.some.val); break;
         case None: printf("rindex: None\n"); break;
     }
+    Str.drop(s.some.val);
 }
 
 static void
@@ -169,6 +175,13 @@ test_auto_str_make() {
     if (s == nullptr) {
         printf("a_s is nullptr\n");
     }
+}
+
+static void
+test_str_io_write() {
+    io_stream ios = IO.cerr();
+    StrIO.write("hello world\n", ios);
+    IO.close(ios);
 }
 
 void
@@ -185,6 +198,8 @@ test_str() {
     test_iteri();
     test_index();
     test_rindex();
+
+    test_str_io_write();
 
     test_auto_str_make();
 }
